@@ -1,18 +1,30 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+// import connect from 'react-redux';
 
+function showAlert(text) {
+  return {
+    type: 'SHOW_ALERT',
+    text
+  }
+}
+
+const mapStateToProps = (state) => (
+  { alert_shown: false }
+)
+
+// const App = (store) => {
 class App extends Component {
+  componentDidMount() {
+    this.props.store.subscribe();
+  }
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <p>Hello world</p>
+        <button
+          onClick={() => (this.props.store.dispatch(showAlert('hello world!')))}
+        >Say hi back</button>
       </div>
     );
   }
